@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'dart:js' as js;
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.blueGrey,
         primaryColor: Colors.blue[800],
-        accentColor: Colors.blueAccent[600],
+        accentColor: Colors.blue[600],
 
         // Define the default font family.
         fontFamily: 'Georgia',
@@ -40,6 +40,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String current="Home";
+  double titleDx=0;
   bool isVisible=false;
   ScrollController _scrollController=ScrollController();
 
@@ -66,10 +67,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
       appBar: AppBar(
         title: Text(current),
+
         actions: <Widget>[
           RaisedButton(
             child:Text("About Me"),
             onPressed: (){
+              _scrollController.animateTo(750, duration: Duration(seconds:1), curve: ElasticInCurve());
 
 
             },
@@ -117,35 +120,75 @@ class _MyHomePageState extends State<MyHomePage> {
                   "Hello, my name is Nithin Muthukumar.\n",
                   style: TextStyle(
                       fontSize: 48,
+
                   ),
                 ),
-                RaisedButton(
-                  child: Text("Projects"),
-                  onPressed: (){
-                    _scrollController.animateTo(400, duration: Duration(seconds:1), curve: ElasticInCurve());
-                  },
+                SizedBox(
+                  height: 100,
+                ),
+                ButtonBar(
+
+                  alignment: MainAxisAlignment.center,
+                  buttonPadding: EdgeInsets.fromLTRB(0,0,0,0),
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Image.asset("assets/images/github_icon.png",scale: 24,),
+                      onPressed: (){
+                        js.context.callMethod("open", ["https://github.com/nithinmuthukumar"]);
+                        },
+                    ),
+                    RaisedButton(
+                      child: Image.asset("assets/images/itch_icon.png",scale: 12,),
+
+
+                    ),
+                    RaisedButton(
+                      child: Image.asset("assets/images/github_icon.png",scale: 24,),
+                      onPressed: (){
+                        js.context.callMethod("open", ["https://github.com/nithinmuthukumar"]);
+                      },
+                    ),
+                    RaisedButton(
+                      child: Image.asset("assets/images/itch_icon.png",scale: 12,),
+
+
+                    ),
+                  ],
 
                 ),
-                SizedBox( height: 250,),
+
+
+
+
+                SizedBox( height: 500,),
+                Transform.translate(
+                  offset: Offset(titleDx,0),
+                  child: Text(
+                    "About Me",
+                    style: TextStyle(
+                      fontSize: 36
+                    )
+                  ),
+
+
+                ),
+
+                SizedBox(height: 40,),
 
                 AnimatedOpacity(
-                  duration: Duration(seconds: 1),
+                  duration: Duration(seconds: 2),
                   opacity: isVisible? 1:0,
-
-
-                  child:Text(
-                    "I'm a highschool student who is passionate about code."
-                        "\nI enjoy participating in game jams and hackathons,\n"
-                        "developing software and doing side projects.",
-                    style: TextStyle(
-                        fontSize: 18,
-                        height: 1.5
-                    ),
-                    textAlign: TextAlign.center,
-                  )
+                  child:About(),
                 ),
-                SizedBox(height: 400,),
-                Text("Projects")
+                SizedBox(height: 500,),
+                Text("Projects"),
+                SizedBox(height:500,),
+                Text("Resume"),
+                SizedBox(height: 500,),
+                Text("Achievements"),
+                SizedBox(height:500),
+                Text("Clubs"),
+                SizedBox(height:500)
               ],
             ),
           ),
@@ -156,4 +199,28 @@ class _MyHomePageState extends State<MyHomePage> {
 
     );
   }
+}
+class About extends StatelessWidget{
+  final text="I'm a highschool student who is passionate about tech and software."
+      "\nI enjoy participating in game jams and hackathons,\n"
+      "developing software and doing side projects.";
+  @override
+  Widget build(BuildContext context) {
+
+    return Column(
+      children: <Widget>[
+        Image.asset("assets/images/itch_icon.png",scale:10),
+        Text(
+          text,
+          style: TextStyle(
+              fontSize: 18,
+              height: 1.5
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+
+  }
+
 }

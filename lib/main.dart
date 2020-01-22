@@ -1,7 +1,30 @@
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
 void main() => runApp(MyApp());
+List<Widget> getProjects(){
+  return <Widget>[
+    Project(
+      "Soulless",
+      "assets/images/Soulless.png",
+      "LD Jam 45 submission"
 
+    ),
+    Project(
+      "Necrokiller",
+      "assets/images/Necrokiller.png",
+      "game made for the Wowie game jam in less than 3 hours"
+    ),
+    Project(
+      "PizzaParty",
+      "assets/images/necrokiller.png",
+      "Project made for GrizzHacks. This is an app that allows users to create "
+          "a party and have others join the party. The purpose of this app is "
+          "to make pizza selection easier by factoring in all people at the "
+          "party preferences and maximizing satisfaction"
+    )
+  ];
+
+}
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -10,13 +33,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Define the default brightness and colors.
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.blueGrey,
+        scaffoldBackgroundColor: Colors.black,
         primaryColor: Colors.blue[800],
         accentColor: Colors.blue[600],
 
         // Define the default font family.
-        fontFamily: 'Georgia',
-
         // Define the default TextTheme. Use this to specify the default
         // text styling for headlines, titles, bodies of text, and more.
         textTheme: TextTheme(
@@ -72,9 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
           RaisedButton(
             child:Text("About Me"),
             onPressed: (){
-              _scrollController.animateTo(750, duration: Duration(seconds:1), curve: ElasticInCurve());
-
-
+              _scrollController.animateTo(750, duration: Duration(seconds:1), curve:Curves.easeIn);
             },
           ),
           RaisedButton(
@@ -106,94 +125,101 @@ class _MyHomePageState extends State<MyHomePage> {
 
       ),
 
-      body: Center(
-
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          controller: _scrollController,
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(0, 160, 0, 0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Hello, my name is Nithin Muthukumar.\n",
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        controller: _scrollController,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(0, 160, 0, 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(100, 0, 0, 200),
+                child:Text(
+                  "Hey, I'm \nNithin Muthukumar.",
                   style: TextStyle(
-                      fontSize: 48,
-
+                    fontSize: 68,
+                    height: 1.2
                   ),
+                  textAlign: TextAlign.left,
                 ),
-                SizedBox(
-                  height: 100,
-                ),
-                ButtonBar(
 
-                  alignment: MainAxisAlignment.center,
-                  buttonPadding: EdgeInsets.fromLTRB(0,0,0,0),
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Image.asset("assets/images/github_icon.png",scale: 24,),
-                      onPressed: (){
-                        js.context.callMethod("open", ["https://github.com/nithinmuthukumar"]);
-                        },
-                    ),
-                    RaisedButton(
-                      child: Image.asset("assets/images/itch_icon.png",scale: 12,),
+              ),
 
+              ButtonBar(
 
-                    ),
-                    RaisedButton(
-                      child: Image.asset("assets/images/github_icon.png",scale: 24,),
-                      onPressed: (){
-                        js.context.callMethod("open", ["https://github.com/nithinmuthukumar"]);
+                alignment: MainAxisAlignment.center,
+                buttonPadding: EdgeInsets.fromLTRB(0,0,0,0),
+                children: <Widget>[
+                  RaisedButton(
+                    child: Image.asset("assets/images/github_icon.png",scale: 24,),
+                    onPressed: (){
+                      js.context.callMethod("open", ["https://github.com/nithinmuthukumar"]);
                       },
-                    ),
-                    RaisedButton(
-                      child: Image.asset("assets/images/itch_icon.png",scale: 12,),
-
-
-                    ),
-                  ],
-
-                ),
-
-
-
-
-                SizedBox( height: 500,),
-                Transform.translate(
-                  offset: Offset(titleDx,0),
-                  child: Text(
-                    "About Me",
-                    style: TextStyle(
-                      fontSize: 36
-                    )
                   ),
+                  RaisedButton(
+                    child: Image.asset("assets/images/itch_icon.png",scale: 12,),
 
 
+                  ),
+                  RaisedButton(
+                    child: Image.asset("assets/images/github_icon.png",scale: 24,),
+                    onPressed: (){
+                      js.context.callMethod("open", ["https://github.com/nithinmuthukumar"]);
+                    },
+                  ),
+                  RaisedButton(
+                    child: Image.asset("assets/images/itch_icon.png",scale: 12,),
+
+
+                  ),
+                ],
+
+              ),
+
+
+
+
+              SizedBox( height: 300,),
+              Transform.translate(
+                offset: Offset(titleDx,0),
+                child: Center(
+                  child: Text(
+                      "About Me",
+                      style: TextStyle(
+                          fontSize: 36
+                      )
+                  ),
                 ),
+              ),
 
-                SizedBox(height: 40,),
+              SizedBox(height: 40,),
 
-                AnimatedOpacity(
-                  duration: Duration(seconds: 2),
-                  opacity: isVisible? 1:0,
-                  child:About(),
-                ),
-                SizedBox(height: 500,),
-                Text("Projects"),
-                SizedBox(height:500,),
-                Text("Resume"),
-                SizedBox(height: 500,),
-                Text("Achievements"),
-                SizedBox(height:500),
-                Text("Clubs"),
-                SizedBox(height:500)
-              ],
-            ),
+              AnimatedOpacity(
+                duration: Duration(seconds: 3),
+                opacity: isVisible? 1:0,
+                child:Center(child:About()),
+              ),
+              SizedBox(height: 500,),
+              Center(child:Text("Projects")),
+              Row(
+
+                children: getProjects(),
+
+              ),
+              SizedBox(height:500,),
+              Text("Resume"),
+              SizedBox(height: 500,),
+              Column(
+                children: <Widget>[
+                  Row(children: <Widget>[Text("Achievements"),Text("Clubs")],)
+                ],
+              ),
+            ],
           ),
-
         ),
+
       ),
 
 
@@ -202,8 +228,10 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 class About extends StatelessWidget{
   final text="I'm a highschool student who is passionate about tech and software."
-      "\nI enjoy participating in game jams and hackathons,\n"
-      "developing software and doing side projects.";
+      "\n\nI enjoy participating in game jams and hackathons,\n"
+      "developing software and doing side projects.\n\n"
+      "My hobbies include playing Magic the Gathering and\n"
+      "tinkering with my raspberry pi.";
   @override
   Widget build(BuildContext context) {
 
@@ -224,3 +252,45 @@ class About extends StatelessWidget{
   }
 
 }
+class Project extends StatelessWidget{
+  final String title;
+  final String imagePath;
+  final String description;
+  Project(this.title,this.imagePath,this.description);
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Card(
+        child: Column(
+
+          children: <Widget>[
+            ListTile(
+              title: Text(title),
+              trailing: IconButton(icon: Icon(Icons.info),
+                onPressed: () {
+                showDialog(context: context,
+                builder: (BuildContext context){
+                  return AlertDialog(
+
+                    content: ConstrainedBox(
+                      child: Text(description),
+                      constraints: BoxConstraints(maxWidth: 200),
+                    )
+                  );
+                });
+
+                },
+              ),
+            ),
+            Image.asset(imagePath)
+          ],
+
+        ),
+
+
+      ),
+    );
+  }
+}
+

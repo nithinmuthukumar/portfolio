@@ -62,18 +62,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String current="Home";
   double titleDx=0;
-  bool isVisible=false;
+  bool isAboutVisible=false;
   ScrollController _scrollController=ScrollController();
 
   scrollListener(){
-    if(_scrollController.offset>840||_scrollController.offset<150){
+    if(_scrollController.offset>1250||_scrollController.offset<220){
       setState((){
-        isVisible=false;
+        isAboutVisible=false;
       });
 
     }else{
       setState(() {
-        isVisible=true;
+        isAboutVisible=true;
       });
     }
   }
@@ -99,28 +99,16 @@ class _MyHomePageState extends State<MyHomePage> {
           RaisedButton(
             child: Text("Projects"),
             onPressed: (){
+              _scrollController.animateTo(1250, duration: Duration(seconds:1), curve:Curves.easeIn);
 
             },
           ),
           RaisedButton(
-            child: Text("Resume"),
+            child: Text("Skills"),
             onPressed: (){
 
             },
           ),
-          RaisedButton(
-            child: Text("Achievements"),
-            onPressed: (){
-
-            },
-          ),
-          RaisedButton(
-            child: Text("Clubs"),
-            onPressed: (){
-
-            },
-          )
-
         ],
 
       ),
@@ -135,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.fromLTRB(100, 0, 0, 200),
+                padding: EdgeInsets.fromLTRB(100, 0, 0, 60),
                 child:Text(
                   "Hey, I'm \nNithin Muthukumar.",
                   style: TextStyle(
@@ -145,6 +133,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   textAlign: TextAlign.left,
                 ),
 
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(150, 0, 0, 140),
+                child: Text("I'm currently looking for a game project to be a part of.",style: TextStyle(
+                  fontSize: 20
+                ),),
               ),
 
               ButtonBar(
@@ -160,6 +154,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   RaisedButton(
                     child: Image.asset("assets/images/itch_icon.png",scale: 12,),
+                    onPressed: (){
+                      js.context.callMethod("open", ["https://nithinmuthukumar.itch.io/"]);
+
+                    },
 
 
                   ),
@@ -198,31 +196,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
               AnimatedOpacity(
                 duration: Duration(seconds: 3),
-                opacity: isVisible? 1:0,
+                opacity: isAboutVisible? 1:0,
                 child:Center(child:About()),
               ),
               SizedBox(height: 500,),
               Center(child:Text("Projects")),
               Row(
-
                 children: getProjects(),
-
               ),
-              SizedBox(height:500,),
-              Text("Resume"),
               SizedBox(height: 500,),
-              Column(
-                children: <Widget>[
-                  Row(children: <Widget>[Text("Achievements"),Text("Clubs")],)
-                ],
-              ),
+              Center(child:Text("Skills")),
+              
+
+
             ],
           ),
         ),
-
       ),
-
-
     );
   }
 }
@@ -248,9 +238,7 @@ class About extends StatelessWidget{
         ),
       ],
     );
-
   }
-
 }
 class Project extends StatelessWidget{
   final String title;
@@ -283,7 +271,7 @@ class Project extends StatelessWidget{
                 },
               ),
             ),
-            Image.asset(imagePath)
+            Image.asset(imagePath,height: 100,width: 100,)
           ],
 
         ),
